@@ -1,0 +1,37 @@
+﻿@model CompStore.WebUI.Models.LoginViewModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="~/Content/css/loginpage.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+
+    <div class="login-page">
+        <div class="form">
+
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary()
+                <form class="login-form">
+
+                    <div class="field">
+                        @Html.TextBoxFor(m => m.UserName, new { @class = "field", placeholder = "username" })
+
+                    </div>
+
+                    <div class="field">
+                        @Html.PasswordFor(m => m.Password, new { @class = "field", placeholder = "password" })
+
+                    </div>
+                    <button>login</button>
+
+                    <p class="message">Not registered? <a href="#">Create an account</a></p>
+                </form>
+            }
+        </div>
+    </div>
+</body>
+</html>
