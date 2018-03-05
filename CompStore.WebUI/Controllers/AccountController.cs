@@ -1,4 +1,5 @@
 ﻿using CompShop.Domain.Abstract;
+using CompShop.Domain.Entities;
 using CompStore.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -50,13 +51,14 @@ namespace CompStore.WebUI.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index", "Home");
         }
 
-        
+       // [AllowAnonymous]
         public ActionResult Success()
         {
             return View();
         }
+
     }
 }
