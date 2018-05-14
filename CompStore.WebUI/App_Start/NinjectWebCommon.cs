@@ -45,8 +45,8 @@ namespace CompStore.WebUI.App_Start
         {
 
             kernel.Bind<IAuthentication>().To<FormsAuthenticationProvider>();
-
-
+            kernel.Bind<IProductRepository>().To<EFProductRepository>();
+            kernel.Bind<IUserRepository>().To<EFUserRepository>();
         }
     }
 }

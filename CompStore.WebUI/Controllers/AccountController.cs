@@ -1,4 +1,5 @@
 ﻿using CompShop.Domain.Abstract;
+using CompShop.Domain.Entities;
 using CompStore.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -13,9 +14,12 @@ namespace CompStore.WebUI.Controllers
     public class AccountController : Controller
     {
         IAuthentication authentication;
-        public AccountController(IAuthentication authentication)
+        IUserRepository repository;
+
+        public AccountController(IAuthentication authentication, IUserRepository repo)
         {
             this.authentication = authentication;
+            repository = repo;
         }
 
         [AllowAnonymous]
@@ -50,13 +54,31 @@ namespace CompStore.WebUI.Controllers
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("Index", "Home");
         }
 
-        
+       // [AllowAnonymous]
         public ActionResult Success()
         {
             return View();
         }
+
+
+        [AllowAnonymous]
+        public ActionResult Create()
+        {
+            return View(new User());
+        }
+
+
+        [AllowAnonymous]
+        [HttpPost]
+        public ActionResult Create(User user)
+        {
+            repository.SaveUser(user);
+            TempData["message"] = string.Format("{0} has been saved", user.UserId);
+            return RedirectToAction("Success", "Account");
+        }
+
     }
 }
